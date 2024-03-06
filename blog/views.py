@@ -15,7 +15,7 @@ def blog_category(request, category):
     ).order_by("-created_on")
     context = {
         "category": category,
-        "psots": posts
+        "posts": posts
     }
     return render(request, "blog/category.html", context)
 
@@ -26,3 +26,4 @@ def blog_detail(request, pk):
         "post": post,
         "comments": comments,
     }
+    return render(request, "blog/detail.html", context)
