@@ -5,15 +5,23 @@
     {% endblock page_title %}
 
     {% block page_content %}
-    <small>
-        {{ post.created_on.date }} | Categories:
-        {% for category in post.categories.all %}
-            <a href="{% url 'blog_category' category.name %}">
-                {{ category.name }}
-            </a>
-        {% endfor %}
-    </small>
-    <p>{{ post.body | linebreaks}}</p>
+{% comment %} Blog post {% endcomment %}
+    <section id="blog-post">
+    <article>
+        <small>
+            {{ post.created_on.date }} | Categories:
+            {% for category in post.categories.all %}
+                <a href="{% url 'blog_category' category.name %}">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+        </small>
+        <p>{{ post.body | linebreaks}}</p>
+    </article>
+    </section>
+
+{% comment %} Comment section {% endcomment %}
+    <section id="comments-section">
     <h3>Leave a comment:</h3>
     <form method="post">
         {% csrf_token %}
@@ -28,11 +36,14 @@
 
     <h3>Comments:</h3>
     {% for comment in comments %}
+    <div id="comment">
         <p>
             On {{comment.created_on.date}} <b>{{comment.author}}</b> wrote:
         </p>
         <p>
             {{comment.body | linebreaks}}
         </p>
+    </div>
     {% endfor %}
+    </section>
     {% endblock page_content %}
